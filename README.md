@@ -1,5 +1,5 @@
 # blog-api
-Blog API
-  /posts - GET (list posts)
-  /posts/:postId - GET (get post by ID)
-  /posts - POST (add post)
+Blog API<br />
+  /posts - GET (list posts)<br />
+  /posts/:postId - GET (get post by ID)<br />
+  /posts - POST (add post)<br />
