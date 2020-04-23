@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+// Middleware
+const verifyToken = require('../middleware/verify-token');
+
+// Models
 const Post = require('../models/Post');
 
 //Get all posts
@@ -29,7 +33,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 //Add New Post
-router.post('/', (req, res, next) => {
+router.post('/', verifyToken, (req, res, next) => {
   const post = new Post(req.body);
   const promise = post.save();
 
