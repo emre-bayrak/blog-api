@@ -11,8 +11,6 @@ const app = express();
 
 // Config
 dotenv.config();
-const config = require('./config');
-app.set('api_secret_key', config.api_secret_key);
 
 //DB Connection
 const db = require('./helper/db')();
