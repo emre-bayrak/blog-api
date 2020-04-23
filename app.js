@@ -9,10 +9,16 @@ const postsRouter = require('./routes/posts');
 
 const app = express();
 
-// Assign variables
+// Config
 dotenv.config();
+const config = require('./config');
+app.set('api_secret_key', config.api_secret_key);
+
 //DB Connection
 const db = require('./helper/db')();
+
+// Middleware
+const verifyToken = require('./middleware/verify-token');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -21,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/posts', postsRouter);
+app.use('/api', verifyToken);
+app.use('/api/posts', postsRouter);
 
 module.exports = app;
