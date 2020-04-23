@@ -1,12 +1,18 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const dotenv = require('dotenv');
 
-var indexRouter = require('./routes/index');
-var postsRouter = require('./routes/posts');
+const indexRouter = require('./routes/index');
+const postsRouter = require('./routes/posts');
 
-var app = express();
+const app = express();
+
+// Assign variables
+dotenv.config();
+//DB Connection
+const db = require('./helper/db')();
 
 app.use(logger('dev'));
 app.use(express.json());

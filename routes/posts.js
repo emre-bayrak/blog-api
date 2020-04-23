@@ -1,17 +1,44 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+const Post = require('../models/Post');
+
+//Get all posts
+router.get('/', (req, res) => {
+  const promise = Post.find({});
+
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
 });
 
-router.get('/:id', function(req, res, next) {
-  res.send('respond with post by ID :' + req.params.id);
+// Get post by ID
+router.get('/:id', (req, res, next) => {
+  const promise = Post.findById(req.params.id);
+
+  promise.then((post) => {
+    if (!post)
+      next({ message: 'The post isn\'t found!'});
+
+    res.json(post);
+  }).catch((err) => {
+    res.json(err);
+  });
 });
 
-router.post('/', function(req, res, next) {
-  res.send('respond with added post');
+//Add New Post
+router.post('/', (req, res, next) => {
+  const post = new Post(req.body);
+  const promise = post.save();
+
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err)=> {
+    res.json(err);
+  });
+
 });
 
 module.exports = router;
